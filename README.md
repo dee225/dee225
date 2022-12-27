@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @dee225
-- 👀 I’m interested in the tech world
+- 👀 I’m interested in the data analytics
 - 🌱 I’m currently learning SQL and other languages
 - 💞️ I’m looking to collaborate and learn new skills
 - 📫 How to reach me email
