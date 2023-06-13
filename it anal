@@ -1,0 +1,58 @@
+-- Create a table to store project information
+CREATE TABLE Projects (
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR(255),
+    start_date DATE,
+    end_date DATE,
+    project_manager VARCHAR(255),
+    status VARCHAR(50)
+);
+
+-- Create a table to store task information
+CREATE TABLE Tasks (
+    task_id INT PRIMARY KEY,
+    task_name VARCHAR(255),
+    project_id INT,
+    start_date DATE,
+    end_date DATE,
+    assignee VARCHAR(255),
+    status VARCHAR(50),
+    FOREIGN KEY (project_id) REFERENCES Projects(project_id)
+);
+
+-- Create a table to store employee information
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    department VARCHAR(100)
+);
+
+-- Create a table to store task assignments
+CREATE TABLE TaskAssignments (
+    assignment_id INT PRIMARY KEY,
+    task_id INT,
+    employee_id INT,
+    start_date DATE,
+    end_date DATE,
+    FOREIGN KEY (task_id) REFERENCES Tasks(task_id),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
+);
+
+-- Retrieve all projects and their details
+SELECT * FROM Projects;
+
+-- Retrieve all tasks for a specific project
+SELECT * FROM Tasks WHERE project_id = <project_id>;
+
+-- Retrieve all tasks assigned to a specific employee
+SELECT * FROM Tasks t
+JOIN TaskAssignments ta ON t.task_id = ta.task_id
+WHERE ta.employee_id = <employee_id>;
+
+-- Retrieve all employees working on a specific project
+SELECT * FROM Employees e
+JOIN TaskAssignments ta ON e.employee_id = ta.employee_id
+JOIN Tasks t ON ta.task_id = t.task_id
+WHERE t.project_id = <project_id>;
